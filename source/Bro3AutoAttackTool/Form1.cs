@@ -16,7 +16,7 @@ namespace Bro3AutoAttackTool
 
     public partial class Form1 : Form
     {
-        const bool TOOL_MODE = false;    //true:身内モード　false:配布モード
+        const bool TOOL_MODE = true;
         const int ZG_ID = 999;
 
         bool timerflg = false;
@@ -63,6 +63,8 @@ namespace Bro3AutoAttackTool
         public Form1()
         {
             InitializeComponent();
+
+            this.Text = string.Format("{0} Ver.{1}", this.Text, Version.ver);
 
             regkey.SetValue(process_name, 11001, Microsoft.Win32.RegistryValueKind.DWord);
 

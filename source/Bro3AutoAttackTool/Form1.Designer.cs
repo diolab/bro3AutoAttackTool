@@ -121,8 +121,15 @@
             this.label23 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.button6 = new System.Windows.Forms.Button();
             this.mpgv = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.label31 = new System.Windows.Forms.Label();
             this.runbtn = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
@@ -139,13 +146,6 @@
             this.stoneF = new System.Windows.Forms.CheckBox();
             this.ironF = new System.Windows.Forms.CheckBox();
             this.riceF = new System.Windows.Forms.CheckBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -1021,7 +1021,7 @@
             this.worldid.Name = "worldid";
             this.worldid.Size = new System.Drawing.Size(71, 19);
             this.worldid.TabIndex = 2;
-            this.worldid.Text = "e2";
+            this.worldid.Text = "w4";
             // 
             // tabPage4
             // 
@@ -1342,6 +1342,16 @@
             this.tabPage5.Text = "詳細設定2";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(564, 320);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(104, 35);
+            this.button5.TabIndex = 2;
+            this.button5.Text = "設定保存";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // groupBox11
             // 
             this.groupBox11.Controls.Add(this.button6);
@@ -1353,6 +1363,17 @@
             this.groupBox11.TabIndex = 0;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "出兵先領地の例外設定";
+            // 
+            // button6
+            // 
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.Location = new System.Drawing.Point(303, 57);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(76, 25);
+            this.button6.TabIndex = 2;
+            this.button6.Text = "選択行削除";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // mpgv
             // 
@@ -1372,6 +1393,45 @@
             this.mpgv.Size = new System.Drawing.Size(367, 175);
             this.mpgv.TabIndex = 1;
             this.mpgv.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.mpgv_EditingControlShowing);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "有効";
+            this.Column1.Name = "Column1";
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.Width = 30;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "武将名";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "座標X";
+            this.Column3.MaxInputLength = 4;
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 70;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "座標Y";
+            this.Column4.MaxInputLength = 4;
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 70;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "目標判定";
+            this.Column5.Items.AddRange(new object[] {
+            "",
+            "木",
+            "石",
+            "鉄",
+            "糧"});
+            this.Column5.Name = "Column5";
+            this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column5.Width = 40;
             // 
             // label31
             // 
@@ -1585,66 +1645,6 @@
             this.riceF.UseVisualStyleBackColor = true;
             this.riceF.CheckedChanged += new System.EventHandler(this.riceF_CheckedChanged);
             // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(564, 320);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(104, 35);
-            this.button5.TabIndex = 2;
-            this.button5.Text = "設定保存";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button6
-            // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(303, 57);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(76, 25);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "選択行削除";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "有効";
-            this.Column1.Name = "Column1";
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column1.Width = 30;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "武将名";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "座標X";
-            this.Column3.MaxInputLength = 4;
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 70;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "座標Y";
-            this.Column4.MaxInputLength = 4;
-            this.Column4.Name = "Column4";
-            this.Column4.Width = 70;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "目標判定";
-            this.Column5.Items.AddRange(new object[] {
-            "",
-            "木",
-            "石",
-            "鉄",
-            "糧"});
-            this.Column5.Name = "Column5";
-            this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column5.Width = 40;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1668,7 +1668,7 @@
             this.Controls.Add(this.statusStrip1);
             this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "Form1";
-            this.Text = "自動鹵獲ツール　ver. 0.44";
+            this.Text = "自動鹵獲ツール";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
