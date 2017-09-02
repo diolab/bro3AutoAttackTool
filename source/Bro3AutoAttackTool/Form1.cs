@@ -404,7 +404,7 @@ namespace Bro3AutoAttackTool
                                     }
                                 }
 
-                                if (skillcheck)
+                                //if (skillcheck)
                                 {
                                     //updeck check
                                     foreach (HtmlElement div in el.GetElementsByTagName("div"))
