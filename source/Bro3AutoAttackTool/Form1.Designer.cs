@@ -33,7 +33,7 @@
             this.stsmsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.wb = new System.Windows.Forms.WebBrowser();
+            this.wb = new Bro3AutoAttackTool.WebBrowserEx();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.diff = new System.Windows.Forms.Label();
             this.cbdebug = new System.Windows.Forms.CheckBox();
@@ -247,6 +247,7 @@
             this.wb.Size = new System.Drawing.Size(660, 349);
             this.wb.TabIndex = 0;
             this.wb.Url = new System.Uri("http://mixi.jp/run_appli.pl?id=6598", System.UriKind.Absolute);
+            this.wb.NewWindow3 += new Bro3AutoAttackTool.WebBrowserEx.WebBrowserNewWindow3EventHandler(this.wb_NewWindow3);
             this.wb.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.wb_DocumentCompleted);
             // 
             // tabPage1
@@ -1738,7 +1739,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.WebBrowser wb;
+        private WebBrowserEx wb;
         private System.Windows.Forms.Button runbtn;
         private System.Windows.Forms.TextBox logbox;
         private System.Windows.Forms.TextBox worldid;

@@ -951,7 +951,7 @@ namespace Bro3AutoAttackTool
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {            
             try
             {
                 //保存先のファイル名
@@ -1469,6 +1469,12 @@ namespace Bro3AutoAttackTool
             }
         }
 
+        private void wb_NewWindow3(object sender, WebBrowserNewWindow3EventArgs e)
+        {
+            // IEでウインドウを開くのを抑止
+            e.Cancel = true;
+            wb.Navigate(e.bstrUrl);
+        }
 
 
     }
