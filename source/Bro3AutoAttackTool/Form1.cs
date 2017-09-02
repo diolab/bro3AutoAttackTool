@@ -396,15 +396,15 @@ namespace Bro3AutoAttackTool
                                 //全軍攻撃カード
                                 if (zgFlg.Checked)
                                 {
-                                    if (el.InnerHtml.IndexOf(string.Format("<TD>{0}</TD>", zgNo.Value))>=0
-                                        && el.InnerHtml.IndexOf(string.Format("<TD>{0}</TD>", zgName.Text))>=0
+                                    if (el.InnerHtml.ToUpper().IndexOf(string.Format("<TD>{0}</TD>", zgNo.Value))>=0
+                                        && el.InnerHtml.ToUpper().IndexOf(string.Format("<TD>{0}</TD>", zgName.Text))>=0
                                         )
                                     {
                                         skillcheck = true;
                                     }
                                 }
 
-                                //if (skillcheck)
+                                if (skillcheck)
                                 {
                                     //updeck check
                                     foreach (HtmlElement div in el.GetElementsByTagName("div"))
@@ -1295,47 +1295,6 @@ namespace Bro3AutoAttackTool
 
         private void button3_Click(object sender, EventArgs e)
         {
-            List<Config.mpb> mp = this.getMpList();
-            this.GetSyuppeiPoint("123");
-            wb.Navigate("http://www.useragentstring.com/");
-            //List<Busyo> bList = this.GetBusyoList(wb);
-
-            //this.SetCurrentResource();
-            /*
-            //string ssid = wb.Document.GetElementById("ssid").GetAttribute("value");
-            //string data = string.Format("mode=unset&target_card={0}&wild_card_flg=&inc_point=&btn_change_flg=&l=&ssid={1}", idnum, ssid);
-            //byte[] byte_post = Encoding.ASCII.GetBytes(data);
-
-            System.Net.WebClient wc = new System.Net.WebClient();
-            System.Collections.Specialized.NameValueCollection ps = new System.Collections.Specialized.NameValueCollection();
-            //送信するデータ（フィールド名と値の組み合わせ）を追加
-            ps.Add("mode", "unset");
-            ps.Add("target_card", "21237811");
-            ps.Add("wild_card_flg", "");
-            ps.Add("inc_point", "");
-            ps.Add("btn_change_flg", "");
-            ps.Add("l", "");
-            ps.Add("ssid", ssid);
-            //ps.Add("", "");
-            //ps.Add("", "");
-            wc.Headers.Add("Cookie", wb.Document.Cookie);
-            wc.Encoding = Encoding.UTF8;
-            wc.Headers["Content-Type"] = "application/x-www-form-urlencoded";
-            //string str_header = "Content-Type: application/x-www-form-urlencoded;charset=UTF-8";
-            //データを送信し、また受信する
-            byte[] resData = wc.UploadValues(string.Format("http://{0}.3gokushi.jp/card/deck.php", worldid.Text), ps);
-            wc.Dispose();
-
-            //受信したデータを表示する
-            string resText = System.Text.Encoding.UTF8.GetString(resData);
-            Console.WriteLine(resText);
-            /*
-            if (asp.status == 4)
-            {
-                asp.status = 5;
-             * */
-                //wb.Navigate(string.Format("http://{0}.3gokushi.jp/card/deck.php", worldid.Text), null, byte_post, str_header);
-
 
         }
 
