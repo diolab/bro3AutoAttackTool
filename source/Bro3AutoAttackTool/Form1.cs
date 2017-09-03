@@ -486,7 +486,7 @@ namespace Bro3AutoAttackTool
                                                             if (skillvillagechk.Checked) { village = string.Format("@{0}", skillvillages.Text); }
                                                             log(string.Format("スキル実行：{0} {1}", skill["skill_name"], village).Trim());
                                                         }
-                                                        else if (asp.status == ZG_ID)
+                                                        else if (asp.status == ZG_ID && skillcheck)
                                                         {
                                                             wb.Navigate(string.Format("http://{0}.3gokushi.jp/card/deck.php", worldid.Text), null, byte_post, str_header);
                                                             log(string.Format("全軍攻カード：No.{0} {1} をデッキに載せました", zgNo.Value, zgName.Text));
