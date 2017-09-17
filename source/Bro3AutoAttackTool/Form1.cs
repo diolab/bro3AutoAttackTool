@@ -177,6 +177,7 @@ namespace Bro3AutoAttackTool
                             if (chkKeikoku.Checked)
                             {
                                 bool needKeikoku = true;
+                                int needKeikokuCount = 0;
                                 if (0 == bList.Count) { needKeikoku = false; }
                                 foreach (Busyo bu in bList)
                                 {
@@ -193,8 +194,14 @@ namespace Bro3AutoAttackTool
                                     if (kdflg) { continue; }
 
                                     //帰還してないor討伐が足りてる場合は傾国を使わない
-                                    if (bu.Id.Equals(string.Empty) || bu.tobatu >= decimal.ToInt32(toubatu.Value)) { needKeikoku = false; }
+                                    if (bu.Id.Equals(string.Empty) || bu.tobatu >= decimal.ToInt32(toubatu.Value)) { 
+                                        needKeikoku = false;
+                                       
+                                    }
+                                    needKeikokuCount++;
                                 }
+                                //傾国対象武将がいない場合強制使用停止
+                                if (0 == needKeikokuCount) { needKeikoku = false; }
                                 if (needKeikoku)
                                 {
                                     //全軍をおろす
