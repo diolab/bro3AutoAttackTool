@@ -150,6 +150,7 @@
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.koudatuHP = new System.Windows.Forms.CheckBox();
+            this.tsSkill = new System.Windows.Forms.ToolStripStatusLabel();
             this.wb = new Bro3AutoAttackTool.WebBrowserEx();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -199,7 +200,8 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.stsmsg});
+            this.stsmsg,
+            this.tsSkill});
             this.statusStrip1.Location = new System.Drawing.Point(0, 439);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(684, 23);
@@ -209,8 +211,10 @@
             // stsmsg
             // 
             this.stsmsg.Name = "stsmsg";
-            this.stsmsg.Size = new System.Drawing.Size(48, 18);
+            this.stsmsg.Size = new System.Drawing.Size(626, 18);
+            this.stsmsg.Spring = true;
             this.stsmsg.Text = "--:--:--";
+            this.stsmsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tabControl1
             // 
@@ -1690,6 +1694,12 @@
             this.koudatuHP.Text = "傾国対象外スキル所持武将は個別にHPを回復する";
             this.koudatuHP.UseVisualStyleBackColor = true;
             // 
+            // tsSkill
+            // 
+            this.tsSkill.Name = "tsSkill";
+            this.tsSkill.Size = new System.Drawing.Size(12, 18);
+            this.tsSkill.Text = ".";
+            // 
             // wb
             // 
             this.wb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1916,6 +1926,7 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.CheckBox koudatuHP;
+        private System.Windows.Forms.ToolStripStatusLabel tsSkill;
     }
 }
 

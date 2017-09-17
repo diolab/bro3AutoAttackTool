@@ -927,7 +927,7 @@ namespace Bro3AutoAttackTool
                 int page1 = 1; int page2 = 1;
                 if (curPagenum.ContainsKey(jsList[jsIdx])) { page1 = curPagenum[jsList[jsIdx]]; }
                 if (curPagenum.ContainsKey("傾国")) { page2 = curPagenum["傾国"]; }
-                diff.Text += string.Format("　　　【使用スキル】　{0}:Pgage {1}　傾国:Page {2}"
+                tsSkill.Text = string.Format("【使用スキル】　{0}:Pgage {1}　傾国:Page {2}"
                     , jsList[jsIdx], page1, page2); ;
             }
 
