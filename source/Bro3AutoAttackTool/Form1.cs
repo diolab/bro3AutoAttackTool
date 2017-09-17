@@ -924,20 +924,22 @@ namespace Bro3AutoAttackTool
                     base_rice = rice;
                 }
 
-                
-                diff.Text = string.Format("【取得資源量】　木：{0}　石：{1}　鉄：{2}　糧：{3}"//　　【使用スキル】　{4}:P{5}　傾国:P{6}"
-                    , wood - base_wood, stone - base_stone, iron - base_iron, rice - base_rice
-                    //, jsList[jsIdx], GetCurrentPagdenum(), 0
-                    );     
-                
-                List<string> jsList = this.getJinkunSkillList();
-                int page1 = 1; int page2 = 1;
-                if (curPagenum.ContainsKey(jsList[jsIdx])) { page1 = curPagenum[jsList[jsIdx]]; }
-                if (curPagenum.ContainsKey("傾国")) { page2 = curPagenum["傾国"]; }
-                tsSkill.Text = string.Format("【使用スキル】　{0}:Pgage {1}　傾国:Page {2}"
-                    , jsList[jsIdx], page1, page2); ;
+
+                diff.Text = string.Format("【取得資源量】　木：{0}　石：{1}　鉄：{2}　糧：{3}"
+                    , wood - base_wood, stone - base_stone, iron - base_iron, rice - base_rice);
+                this.setSkillStatus();
+
             }
 
+        }
+
+        private void setSkillStatus()
+        { 
+            List<string> jsList = this.getJinkunSkillList();
+            int page1 = 1; int page2 = 1;
+            if (curPagenum.ContainsKey(jsList[jsIdx])) { page1 = curPagenum[jsList[jsIdx]]; }
+            if (curPagenum.ContainsKey("傾国")) { page2 = curPagenum["傾国"]; }
+            tsSkill.Text = string.Format("【使用スキル】　{0}:Page {1}　傾国:Page {2}", jsList[jsIdx], page1, page2);
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -1350,21 +1352,30 @@ namespace Bro3AutoAttackTool
 
         private void skillreset_Click(object sender, EventArgs e)
         {
-            jsIdx = 0;
-            foreach (KeyValuePair<string, int> cp in curPagenum)
-            {
-                try
+            try{
+                //回復スキルリセット
+                List<string> jsList = this.getJinkunSkillList();
+                foreach (string sname in jsList)
                 {
-                    if (curPagenum.ContainsKey(cp.Key))
+                    if (curPagenum.ContainsKey(sname))
                     {
-                        curPagenum[cp.Key] = 1;
+                        curPagenum[sname] = 1;
                     }
                 }
-                catch (Exception ex)
+                jsIdx = 0;
+                
+                //傾国リセット
+                if (curPagenum.ContainsKey("傾国"))
                 {
-                    debug_log(ex.Message);
+                    curPagenum["傾国"] = 1;
                 }
+                this.setSkillStatus();
             }
+            catch (Exception ex)
+            {
+                debug_log(ex.Message);
+            }
+            
             MessageBox.Show("回復スキルとページング情報を初期化しました");
         }
 
