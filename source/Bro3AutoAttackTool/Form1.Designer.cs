@@ -33,7 +33,6 @@
             this.stsmsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.wb = new Bro3AutoAttackTool.WebBrowserEx();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.diff = new System.Windows.Forms.Label();
             this.cbdebug = new System.Windows.Forms.CheckBox();
@@ -146,6 +145,11 @@
             this.stoneF = new System.Windows.Forms.CheckBox();
             this.ironF = new System.Windows.Forms.CheckBox();
             this.riceF = new System.Windows.Forms.CheckBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.wb = new Bro3AutoAttackTool.WebBrowserEx();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -233,22 +237,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Web";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // wb
-            // 
-            this.wb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.wb.IsWebBrowserContextMenuEnabled = false;
-            this.wb.Location = new System.Drawing.Point(8, 6);
-            this.wb.MinimumSize = new System.Drawing.Size(20, 20);
-            this.wb.Name = "wb";
-            this.wb.ScriptErrorsSuppressed = true;
-            this.wb.Size = new System.Drawing.Size(660, 349);
-            this.wb.TabIndex = 0;
-            this.wb.Url = new System.Uri("http://mixi.jp/run_appli.pl?id=6598", System.UriKind.Absolute);
-            this.wb.NewWindow3 += new Bro3AutoAttackTool.WebBrowserEx.WebBrowserNewWindow3EventHandler(this.wb_NewWindow3);
-            this.wb.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.wb_DocumentCompleted);
             // 
             // tabPage1
             // 
@@ -630,13 +618,14 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.button10);
             this.groupBox6.Controls.Add(this.rice_y);
             this.groupBox6.Controls.Add(this.rice_x);
             this.groupBox6.Controls.Add(this.label12);
             this.groupBox6.Controls.Add(this.label13);
-            this.groupBox6.Location = new System.Drawing.Point(443, 176);
+            this.groupBox6.Location = new System.Drawing.Point(409, 176);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(180, 47);
+            this.groupBox6.Size = new System.Drawing.Size(241, 47);
             this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "糧の出兵先";
@@ -695,13 +684,14 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.button9);
             this.groupBox5.Controls.Add(this.iron_y);
             this.groupBox5.Controls.Add(this.iron_x);
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.label11);
-            this.groupBox5.Location = new System.Drawing.Point(443, 123);
+            this.groupBox5.Location = new System.Drawing.Point(409, 123);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(180, 47);
+            this.groupBox5.Size = new System.Drawing.Size(241, 47);
             this.groupBox5.TabIndex = 7;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "鉄の出兵先";
@@ -760,13 +750,14 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.button8);
             this.groupBox4.Controls.Add(this.stone_y);
             this.groupBox4.Controls.Add(this.stone_x);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Location = new System.Drawing.Point(443, 70);
+            this.groupBox4.Location = new System.Drawing.Point(409, 70);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(180, 47);
+            this.groupBox4.Size = new System.Drawing.Size(241, 47);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "石の出兵先";
@@ -825,13 +816,14 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button7);
             this.groupBox3.Controls.Add(this.wood_y);
             this.groupBox3.Controls.Add(this.wood_x);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Location = new System.Drawing.Point(443, 17);
+            this.groupBox3.Location = new System.Drawing.Point(409, 17);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(180, 47);
+            this.groupBox3.Size = new System.Drawing.Size(241, 47);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "木の出兵先";
@@ -1646,6 +1638,62 @@
             this.riceF.UseVisualStyleBackColor = true;
             this.riceF.CheckedChanged += new System.EventHandler(this.riceF_CheckedChanged);
             // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(177, 15);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(53, 23);
+            this.button7.TabIndex = 2;
+            this.button7.Text = "確認";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(177, 14);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(53, 23);
+            this.button8.TabIndex = 3;
+            this.button8.Text = "確認";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(177, 15);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(53, 23);
+            this.button9.TabIndex = 3;
+            this.button9.Text = "確認";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(177, 15);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(53, 23);
+            this.button10.TabIndex = 4;
+            this.button10.Text = "確認";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // wb
+            // 
+            this.wb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.wb.IsWebBrowserContextMenuEnabled = false;
+            this.wb.Location = new System.Drawing.Point(8, 6);
+            this.wb.MinimumSize = new System.Drawing.Size(20, 20);
+            this.wb.Name = "wb";
+            this.wb.ScriptErrorsSuppressed = true;
+            this.wb.Size = new System.Drawing.Size(660, 349);
+            this.wb.TabIndex = 0;
+            this.wb.Url = new System.Uri("http://mixi.jp/run_appli.pl?id=6598", System.UriKind.Absolute);
+            this.wb.NewWindow3 += new Bro3AutoAttackTool.WebBrowserEx.WebBrowserNewWindow3EventHandler(this.wb_NewWindow3);
+            this.wb.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.wb_DocumentCompleted);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1851,6 +1899,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column5;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button7;
     }
 }
 

@@ -1438,6 +1438,38 @@ namespace Bro3AutoAttackTool
             wb.Navigate(e.bstrUrl);
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            wb.Navigate(string.Format("http://{0}.3gokushi.jp/land.php?x={1}&y={2}"
+                                , worldid.Text, decimal.ToInt32(wood_x.Value), decimal.ToInt32(wood_y.Value)));
+            tabControl1.SelectedIndex = 0;
+                
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            wb.Navigate(string.Format("http://{0}.3gokushi.jp/land.php?x={1}&y={2}"
+                               , worldid.Text, decimal.ToInt32(stone_x.Value), decimal.ToInt32(stone_y.Value)));
+            tabControl1.SelectedIndex = 0;
+                
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            wb.Navigate(string.Format("http://{0}.3gokushi.jp/land.php?x={1}&y={2}"
+                               , worldid.Text, decimal.ToInt32(iron_x.Value), decimal.ToInt32(iron_y.Value)));
+            tabControl1.SelectedIndex = 0;
+                
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            wb.Navigate(string.Format("http://{0}.3gokushi.jp/land.php?x={1}&y={2}"
+                               , worldid.Text, decimal.ToInt32(rice_x.Value), decimal.ToInt32(rice_y.Value)));
+            tabControl1.SelectedIndex = 0;
+                
+        }
+
 
     }
 }
