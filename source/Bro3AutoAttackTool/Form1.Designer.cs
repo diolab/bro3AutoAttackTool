@@ -149,6 +149,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
+            this.koudatuHP = new System.Windows.Forms.CheckBox();
             this.wb = new Bro3AutoAttackTool.WebBrowserEx();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -1033,11 +1034,12 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.koudatuHP);
             this.groupBox10.Controls.Add(this.koudatuList);
             this.groupBox10.Controls.Add(this.label30);
-            this.groupBox10.Location = new System.Drawing.Point(227, 209);
+            this.groupBox10.Location = new System.Drawing.Point(227, 197);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(285, 146);
+            this.groupBox10.Size = new System.Drawing.Size(285, 158);
             this.groupBox10.TabIndex = 5;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "傾国対象外スキル";
@@ -1047,7 +1049,7 @@
             this.koudatuList.Location = new System.Drawing.Point(5, 49);
             this.koudatuList.Multiline = true;
             this.koudatuList.Name = "koudatuList";
-            this.koudatuList.Size = new System.Drawing.Size(269, 91);
+            this.koudatuList.Size = new System.Drawing.Size(269, 81);
             this.koudatuList.TabIndex = 1;
             this.koudatuList.Text = "お菓子の攻奪\r\n龍神の攻奪";
             // 
@@ -1073,7 +1075,7 @@
             this.groupBox9.Controls.Add(this.zgNo);
             this.groupBox9.Controls.Add(this.label25);
             this.groupBox9.Controls.Add(this.zgFlg);
-            this.groupBox9.Location = new System.Drawing.Point(227, 68);
+            this.groupBox9.Location = new System.Drawing.Point(227, 56);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(285, 135);
             this.groupBox9.TabIndex = 4;
@@ -1226,7 +1228,7 @@
             this.groupBox8.Controls.Add(this.overCapaChk);
             this.groupBox8.Location = new System.Drawing.Point(227, 6);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(285, 56);
+            this.groupBox8.Size = new System.Drawing.Size(285, 44);
             this.groupBox8.TabIndex = 3;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "目標資源管理";
@@ -1234,7 +1236,7 @@
             // overCapaChk
             // 
             this.overCapaChk.AutoSize = true;
-            this.overCapaChk.Location = new System.Drawing.Point(8, 25);
+            this.overCapaChk.Location = new System.Drawing.Point(8, 21);
             this.overCapaChk.Name = "overCapaChk";
             this.overCapaChk.Size = new System.Drawing.Size(215, 16);
             this.overCapaChk.TabIndex = 0;
@@ -1678,6 +1680,16 @@
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
+            // koudatuHP
+            // 
+            this.koudatuHP.AutoSize = true;
+            this.koudatuHP.Location = new System.Drawing.Point(6, 136);
+            this.koudatuHP.Name = "koudatuHP";
+            this.koudatuHP.Size = new System.Drawing.Size(271, 16);
+            this.koudatuHP.TabIndex = 2;
+            this.koudatuHP.Text = "傾国対象外スキル所持武将は個別にHPを回復する";
+            this.koudatuHP.UseVisualStyleBackColor = true;
+            // 
             // wb
             // 
             this.wb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1903,6 +1915,7 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.CheckBox koudatuHP;
     }
 }
 

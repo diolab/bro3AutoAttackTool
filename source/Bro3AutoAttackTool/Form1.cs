@@ -112,6 +112,7 @@ namespace Bro3AutoAttackTool
                             if (chkjinkun.Checked)
                             {
                                 bool needjinkun = true;
+                                bool kdflg = false;
                                 foreach (Busyo bu in bList)
                                 {
                                     //鹵獲武将以外は無視
@@ -119,8 +120,17 @@ namespace Bro3AutoAttackTool
                                     if (bu.speed < decimal.ToInt32(speedBorder.Value)) { continue; }
 
                                     if (bu.Id.Equals(string.Empty)) { needjinkun = false; }
+
+                                    //攻奪は帰還待たず回復
+                                    if (koudatuHP.Checked)
+                                    {
+                                        foreach (string kd in this.getKoudatuList())
+                                        {
+                                            if (bu.skill.Contains(kd.Trim())) { kdflg = true; }
+                                        }
+                                    }
                                 }
-                                if(needjinkun){
+                                if(needjinkun || kdflg){
                                     foreach (Busyo bu in bList)
                                     {
                                         //鹵獲武将以外は無視
@@ -1086,6 +1096,7 @@ namespace Bro3AutoAttackTool
                     {
                         koudatuList.Text = obj.kd_skill.Replace("\n", "\r\n");
                     }
+                    koudatuHP.Checked = obj.kd_hp;
                 }
                 catch (Exception ex) { this.debug_log(ex.Message); }
 
@@ -1200,6 +1211,7 @@ namespace Bro3AutoAttackTool
                 obj.mp_list = this.getMpList();
 
                 obj.kd_skill = koudatuList.Text;
+                obj.kd_hp = koudatuHP.Checked;
 
                     //save
                 System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Config));
@@ -1334,9 +1346,17 @@ namespace Bro3AutoAttackTool
             jsIdx = 0;
             foreach (KeyValuePair<string, int> cp in curPagenum)
             {
-                 if (curPagenum.ContainsKey(cp.Key)){
-                    curPagenum[cp.Key] = 1;
-                 }
+                try
+                {
+                    if (curPagenum.ContainsKey(cp.Key))
+                    {
+                        curPagenum[cp.Key] = 1;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    debug_log(ex.Message);
+                }
             }
             MessageBox.Show("回復スキルとページング情報を初期化しました");
         }

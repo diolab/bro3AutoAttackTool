@@ -80,5 +80,6 @@ namespace Bro3AutoAttackTool
 
 
         public string kd_skill;
+        public bool kd_hp;
     }
 }
