@@ -124,10 +124,14 @@ namespace Bro3AutoAttackTool
                                     //攻奪は帰還待たず回復
                                     if (koudatuHP.Checked)
                                     {
-                                        foreach (string kd in this.getKoudatuList())
+                                        //帰還してないor討伐が足りてる場合は傾国を使わない
+                                        if (!bu.Id.Equals(string.Empty))
                                         {
-                                            if (bu.skill.Contains(kd.Trim())) { kdflg = true; }
-                                        }
+                                            foreach (string kd in this.getKoudatuList())
+                                            {
+                                                if (bu.skill.Contains(kd.Trim())) { kdflg = true; }
+                                            }
+                                        }                                            
                                     }
                                 }
                                 if(needjinkun || kdflg){
