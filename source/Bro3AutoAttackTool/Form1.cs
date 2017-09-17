@@ -307,14 +307,17 @@ namespace Bro3AutoAttackTool
                                         //check akiti
                                         if (chkakiti.Checked)
                                         {
-                                            if (el.GetElementsByTagName("strong")[0].InnerHtml.IndexOf("【空き地】") < 0) { break; }
+                                            if (el.GetElementsByTagName("strong")[0].InnerHtml.IndexOf("【空き地】") < 0)
+                                            {
+                                                log(string.Format("空き地チェック違反で出兵停止 - [1] {0}", el.GetElementsByTagName("strong")[0].InnerHtml, mtype));
+                                                rflg = false;
+                                                return;
+                                            }
                                         }
 
                                         log(string.Format("{0} [{3}] - {1} {2}"
                                             , el.GetElementsByTagName("strong")[0].InnerHtml
-                                            , bname, bskill, mtype
-
-                                            ));
+                                            , bname, bskill, mtype));
                                     }
                                 }
                                 HtmlElement he = w.Document.GetElementById("btn_send");
