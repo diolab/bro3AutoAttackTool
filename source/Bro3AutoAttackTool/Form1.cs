@@ -111,35 +111,11 @@ namespace Bro3AutoAttackTool
                             //回復チェック
                             if (chkjinkun.Checked)
                             {
-                                bool needjinkun = true;
-                                bool kdflg = false;
-                                foreach (Busyo bu in bList)
-                                {
-                                    //鹵獲武将以外は無視
-                                    if (bu.attack < decimal.ToInt32(attackBorder.Value)) { continue; }
-                                    if (bu.speed < decimal.ToInt32(speedBorder.Value)) { continue; }
-
-                                    if (bu.Id.Equals(string.Empty)) { needjinkun = false; }
-
-                                    //攻奪は帰還待たず回復
-                                    if (koudatuHP.Checked)
-                                    {
-                                        //帰還してないor討伐が足りてる場合は傾国を使わない
-                                        if (!bu.Id.Equals(string.Empty))
-                                        {
-                                            foreach (string kd in this.getKoudatuList())
-                                            {
-                                                if (bu.skill.Contains(kd.Trim())) { kdflg = true; }
-                                            }
-                                        }                                            
-                                    }
-                                }
-                                if(needjinkun || kdflg){
+                                if(this.chkJinkunSkill(w)){
                                     foreach (Busyo bu in bList)
                                     {
                                         //鹵獲武将以外は無視
-                                        if (bu.attack < decimal.ToInt32(attackBorder.Value)) { continue; }
-                                        if (bu.speed < decimal.ToInt32(speedBorder.Value)) { continue; }                                      
+                                        if (!chkRokakuBusyo(bu)) { continue; }
 
                                         if (bu.hp < decimal.ToInt32(jinkunhp.Value))
                                         {
@@ -186,8 +162,7 @@ namespace Bro3AutoAttackTool
                                 foreach (Busyo bu in bList)
                                 {
                                     //鹵獲武将以外は無視
-                                    if (bu.attack < decimal.ToInt32(attackBorder.Value)) { continue; }
-                                    if (bu.speed < decimal.ToInt32(speedBorder.Value)) { continue; }
+                                    if (!chkRokakuBusyo(bu)) { continue; }
                                     
                                     //攻奪は傾国無視
                                     bool kdflg = false;
@@ -559,6 +534,64 @@ namespace Bro3AutoAttackTool
                 //読み込み未完了時の処理
                 Console.Write(e.Url);
             }
+        }
+        private bool chkJinkunSkill(WebBrowser w)
+        {
+            List<Busyo> bList = this.GetBusyoList(w);
+
+            //攻奪チェック
+            if (koudatuHP.Checked)
+            {
+                //攻奪武将の単体回復チェック
+                foreach (Busyo bu in bList)
+                {
+                    //鹵獲対象チェック
+                    if (!chkRokakuBusyo(bu)) { continue; }
+
+                    if (!bu.Id.Equals(string.Empty)) //帰還済み
+                    {
+                        foreach (string kd in this.getKoudatuList())
+                        {
+                            if (bu.skill.Contains(kd.Trim())
+                                && bu.hp < decimal.ToInt32(jinkunhp.Value)
+                                )
+                            {   
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //鹵獲の帰還チェック
+            bool rokaku = true;
+            foreach (Busyo bu in bList)
+            {
+                //鹵獲対象チェック
+                if (!chkRokakuBusyo(bu)) { continue; }
+
+                //お菓子はスキップ
+                bool f = false;
+                foreach (string kd in this.getKoudatuList())
+                {
+                    if (bu.skill.Contains(kd.Trim())) { f = true; }
+                }
+                if (f) { continue; }
+ 
+                //帰還済み
+                if (bu.Id.Equals(string.Empty)) { rokaku = false; }
+            }
+
+            return rokaku;
+        }
+
+        private bool chkRokakuBusyo(Busyo bu)
+        {
+            //鹵獲対象の武将か確認
+            if (bu.attack < decimal.ToInt32(attackBorder.Value)) { return false; }
+            if (bu.speed < decimal.ToInt32(speedBorder.Value)) { return false; }
+
+            return true;
         }
 
         private int GetCurrentPagdenum()
