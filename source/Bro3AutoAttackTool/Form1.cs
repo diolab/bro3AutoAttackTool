@@ -111,44 +111,39 @@ namespace Bro3AutoAttackTool
                             //回復チェック
                             if (chkjinkun.Checked)
                             {
-                                if(this.chkJinkunSkill(w)){
-                                    foreach (Busyo bu in bList)
+                                if (this.chkJinkunSkill(w))
+                                {
+
+                                    //全軍をおろす
+                                    if (zgFlg.Checked)
                                     {
-                                        //鹵獲武将以外は無視
-                                        if (!chkRokakuBusyo(bu)) { continue; }
-
-                                        if (bu.hp < decimal.ToInt32(jinkunhp.Value))
+                                        foreach (Busyo bu2 in bList)
                                         {
-                                            //全軍をおろす
-                                            if (zgFlg.Checked)
+                                            if (bu2.Name.Equals(zgName.Text.Trim()))
                                             {
-                                                foreach (Busyo bu2 in bList)
-                                                {
-                                                    if (bu2.Name.Equals(zgName.Text.Trim()))
-                                                    {
-                                                        wb.Navigate(string.Format("http://{0}.3gokushi.jp/card/deck.php#zgof", worldid.Text));
-                                                        return;
-                                                    }
-                                                }
-                                            }
-
-                                            List<string> jsList = this.getJinkunSkillList();
-                                            if (jsIdx >= jsList.Count) { jsIdx = 0; }
-                                            if (asp.status == 0)
-                                            {
-                                                asp.status = 1;
-                                                asp.tabnum = decimal.ToInt32(jinkuntab.Value);                                                
-                                                asp.maxpagenum = decimal.ToInt32(jinkunpage.Value);
-                                                asp.skillname = jsList[jsIdx];  //"仁君";
-                                                asp.pagenum = this.GetCurrentPagdenum();
-                                                asp.settype = "domestic_set";
-                                                asp.actiontype = 2;
-
-                                                wb.Navigate(string.Format("http://{1}.3gokushi.jp/card/deck.php?l={0}&p={2}"
-                                                    , asp.tabnum.ToString(), worldid.Text, asp.pagenum.ToString()));
+                                                wb.Navigate(string.Format("http://{0}.3gokushi.jp/card/deck.php#zgof", worldid.Text));
                                                 return;
                                             }
                                         }
+                                    }
+
+                                    List<string> jsList = this.getJinkunSkillList();
+                                    if (jsIdx >= jsList.Count) { jsIdx = 0; }
+                                    if (asp.status == 0)
+                                    {
+                                        asp.status = 1;
+                                        asp.tabnum = decimal.ToInt32(jinkuntab.Value);
+                                        asp.maxpagenum = decimal.ToInt32(jinkunpage.Value);
+                                        asp.skillname = jsList[jsIdx];  //"仁君";
+                                        asp.pagenum = this.GetCurrentPagdenum();
+                                        asp.settype = "domestic_set";
+                                        asp.actiontype = 2;
+
+                                        wb.Navigate(string.Format("http://{1}.3gokushi.jp/card/deck.php?l={0}&p={2}"
+                                            , asp.tabnum.ToString(), worldid.Text, asp.pagenum.ToString()));
+
+                                        this.busyoStatus(bList);
+                                        return;
                                     }
                                 }
                             }
@@ -208,6 +203,8 @@ namespace Bro3AutoAttackTool
 
                                         wb.Navigate(string.Format("http://{1}.3gokushi.jp/card/deck.php?l={0}&p={2}"
                                             , asp.tabnum.ToString(), worldid.Text, asp.pagenum.ToString()));
+
+                                        this.busyoStatus(bList);
                                         return;
                                     }
                                 }
@@ -374,7 +371,7 @@ namespace Bro3AutoAttackTool
                                                 return;
                                             }
                                         }
-                                    }                                                                                                        
+                                    }
                                 }
                             }
                             break;
@@ -396,7 +393,7 @@ namespace Bro3AutoAttackTool
                                 if (zgFlg.Checked)
                                 {
                                     if (el.InnerHtml.ToUpper().IndexOf(string.Format("<TD>{0}</TD>", zgNo.Value))>=0
-                                        && el.InnerHtml.ToUpper().IndexOf(string.Format("<TD>{0}</TD>", zgName.Text))>=0
+                                        && el.InnerHtml.ToUpper().IndexOf(string.Format(">{0}</DIV>", zgName.Text))>=0
                                         )
                                     {
                                         skillcheck = true;
@@ -555,7 +552,8 @@ namespace Bro3AutoAttackTool
                             if (bu.skill.Contains(kd.Trim())
                                 && bu.hp < decimal.ToInt32(jinkunhp.Value)
                                 )
-                            {   
+                            {
+                                //this.busyoStatus(bList);
                                 return true;
                             }
                         }
@@ -565,6 +563,7 @@ namespace Bro3AutoAttackTool
 
             //鹵獲の帰還チェック
             bool rokaku = true;
+            bool hp = false;
             foreach (Busyo bu in bList)
             {
                 //鹵獲対象チェック
@@ -578,11 +577,33 @@ namespace Bro3AutoAttackTool
                 }
                 if (f) { continue; }
  
-                //帰還済み
+                //帰還
                 if (bu.Id.Equals(string.Empty)) { rokaku = false; }
+
+                //hp不足
+                if (bu.hp < decimal.ToInt32(jinkunhp.Value)) { hp = true; }
             }
 
-            return rokaku;
+
+            //if (rokaku && hp) { this.busyoStatus(bList); }
+            return rokaku && hp;
+        }
+
+
+        private void busyoStatus(List<Busyo> bList)
+        {
+            string msg = string.Empty;
+            foreach (Busyo bu in bList)
+            {
+                //鹵獲対象チェック
+                string rokaku = "+";
+                if (!chkRokakuBusyo(bu)) { rokaku = "-"; }
+
+                string tb = "帰";
+                if (bu.Id.Equals(string.Empty)) { tb = string.Empty; }
+                msg += string.Format("{0}{1}({2}-{3}){4}", rokaku, bu.Name, bu.hp, bu.tobatu, tb);
+            }
+           // this.log(msg);
         }
 
         private bool chkRokakuBusyo(Busyo bu)
