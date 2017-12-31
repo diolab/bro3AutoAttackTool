@@ -151,32 +151,7 @@ namespace Bro3AutoAttackTool
                             //傾国チェック
                             if (chkKeikoku.Checked)
                             {
-                                bool needKeikoku = true;
-                                int needKeikokuCount = 0;
-                                if (0 == bList.Count) { needKeikoku = false; }
-                                foreach (Busyo bu in bList)
-                                {
-                                    //鹵獲武将以外は無視
-                                    if (!chkRokakuBusyo(bu)) { continue; }
-                                    
-                                    //攻奪は傾国無視
-                                    bool kdflg = false;
-                                    foreach (string kd in this.getKoudatuList())
-                                    {
-                                        if (bu.skill.Contains(kd.Trim())) { kdflg = true; }
-                                    }
-                                    if (kdflg) { continue; }
-
-                                    //帰還してないor討伐が足りてる場合は傾国を使わない
-                                    if (bu.Id.Equals(string.Empty) || bu.tobatu >= decimal.ToInt32(toubatu.Value)) { 
-                                        needKeikoku = false;
-                                       
-                                    }
-                                    needKeikokuCount++;
-                                }
-                                //傾国対象武将がいない場合強制使用停止
-                                if (0 == needKeikokuCount) { needKeikoku = false; }
-                                if (needKeikoku)
+                                if (this.chkKeikokuSkill(w))
                                 {
                                     //全軍をおろす
                                     if (zgFlg.Checked)
@@ -532,6 +507,59 @@ namespace Bro3AutoAttackTool
                 Console.Write(e.Url);
             }
         }
+
+
+        private bool chkKeikokuSkill(WebBrowser w)
+        {
+            List<Busyo> bList = this.GetBusyoList(w);
+
+            bool needKeikoku = true;
+            int needKeikokuCount = 0;
+            if (0 == bList.Count) { needKeikoku = false; }
+            foreach (Busyo bu in bList)
+            {
+                //鹵獲武将以外は無視
+                if (!chkRokakuBusyo(bu)) { continue; }
+
+                //攻奪は傾国無視
+                bool kdflg = false;
+                foreach (string kd in this.getKoudatuList())
+                {
+                    if (bu.skill.Contains(kd.Trim())) { kdflg = true; }
+                }
+                if (kdflg) { continue; }
+
+                //帰還してないor討伐が足りてる場合は傾国を使わない
+                if (bu.Id.Equals(string.Empty) || bu.tobatu >= decimal.ToInt32(toubatu.Value))
+                {
+                    needKeikoku = false;
+
+                }
+                needKeikokuCount++;
+            }
+            //傾国対象武将がいない場合強制使用停止
+            if (0 == needKeikokuCount) { needKeikoku = false; }
+
+            //帰還済みの攻奪がいる場合は傾国強制不使用
+            foreach (Busyo bu in bList)
+            {
+                //鹵獲武将以外は無視
+                if (!chkRokakuBusyo(bu)) { continue; }
+
+                //攻奪は傾国無視
+                bool kdflg = false;
+                foreach (string kd in this.getKoudatuList())
+                {
+                    if (bu.skill.Contains(kd.Trim())) { kdflg = true; }
+                }
+                if (true==kdflg && !bu.Id.Equals(string.Empty)) {
+                    return false;
+                }
+            }
+
+            return needKeikoku;
+        }
+
         private bool chkJinkunSkill(WebBrowser w)
         {
             List<Busyo> bList = this.GetBusyoList(w);
@@ -603,7 +631,7 @@ namespace Bro3AutoAttackTool
                 if (bu.Id.Equals(string.Empty)) { tb = string.Empty; }
                 msg += string.Format("{0}{1}({2}-{3}){4}", rokaku, bu.Name, bu.hp, bu.tobatu, tb);
             }
-           // this.log(msg);
+            this.log(msg);
         }
 
         private bool chkRokakuBusyo(Busyo bu)
@@ -751,7 +779,8 @@ namespace Bro3AutoAttackTool
             return string.Empty;
         }
 
-        private List<Busyo> GetBusyoList(WebBrowser web) {
+        private List<Busyo> GetBusyoList(WebBrowser web)
+        {
             List<Busyo> list = new List<Busyo>();
 
             foreach (HtmlElement el in web.Document.GetElementsByTagName("div"))
@@ -763,7 +792,7 @@ namespace Bro3AutoAttackTool
                 foreach (HtmlElement be in el.GetElementsByTagName("table"))
                 {
                     if (!be.GetAttribute("className").Equals("general attackGeneralListTbl")) { continue; }
-                   //debug_log(be.InnerHtml);
+                    //debug_log(be.InnerHtml);
                     //if (cnt++ <= 0) { continue; }
 
                     int c = 0;
@@ -772,7 +801,7 @@ namespace Bro3AutoAttackTool
                     {
                         c++;
                         if (c <= 1) { continue; }
-                       
+
                         debug_log(tr.InnerHtml);
 
                         HtmlElementCollection td = tr.GetElementsByTagName("td");
@@ -792,7 +821,7 @@ namespace Bro3AutoAttackTool
                             b.Name = td[1].GetElementsByTagName("a")[1].InnerHtml;
 
                             //tobatu
-                            string tob="<STRONG>討</STRONG>";
+                            string tob = "<STRONG>討</STRONG>";
                             string html = td[2].InnerHtml.ToUpper().Replace("\t", string.Empty);
                             html = html.Replace("<SPAN CLASS=\"RED\">", string.Empty).Replace("</SPAN>", string.Empty);
                             string buf = html.Substring(html.IndexOf(tob) + tob.Length);
@@ -817,7 +846,7 @@ namespace Bro3AutoAttackTool
                             string spde = "<BR>\n<STRONG>防御力</STRONG>";
                             buf = buf.Substring(0, buf.IndexOf(spde) - 1).Trim();
                             b.speed = (int)double.Parse(this.redParam(buf));
-                            
+
 
                             //hp
                             string hp = "<STRONG>HP</STRONG>";
@@ -827,7 +856,7 @@ namespace Bro3AutoAttackTool
                             b.hp = int.Parse(buf);
 
                             debug_log(string.Format("武将情報-------------------------------"));
-                            debug_log(string.Format("武将名：{0}",b.Name));
+                            debug_log(string.Format("武将名：{0}", b.Name));
                             debug_log(string.Format("討伐：{0}", b.tobatu));
                             debug_log(string.Format("攻撃力：{0}", b.attack));
                             debug_log(string.Format("速度：{0}", b.speed));
@@ -840,7 +869,7 @@ namespace Bro3AutoAttackTool
                             {
                                 debug_log(string.Format("スキル：{0}", msg));
                             }
-                            
+
 
 
                         }
@@ -869,15 +898,37 @@ namespace Bro3AutoAttackTool
                             b.skill.Add(td.InnerHtml.Substring(0, idx));
                         }
                     }
-                exitloop:;
+                exitloop: ;
 
 
                     list.Add(b);
                 }
-                
+
             }
-            
-            return list;
+
+            //帰還済みの攻奪をリストの先頭へ移動
+            List<Busyo> result = new List<Busyo>();
+            List<Busyo> buflist = new List<Busyo>();
+            foreach (Busyo bu in list)
+            {
+                bool kdflg = false;
+                foreach (string kd in this.getKoudatuList())
+                {
+                    if (bu.skill.Contains(kd.Trim())) { kdflg = true; }
+                }
+
+                if (true == kdflg && !bu.Id.Equals(string.Empty))
+                {
+                    result.Add(bu);
+                }
+                else
+                {
+                    buflist.Add(bu);
+                }
+            }
+            foreach (Busyo bu in buflist) { result.Add(bu); }
+
+            return result;
         }
 
         private void RunSyuppei(){
