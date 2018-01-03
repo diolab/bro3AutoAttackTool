@@ -263,6 +263,19 @@ namespace Bro3AutoAttackTool
                                 }
                             }
 
+
+                            //遠征訓練貯金
+                            if (chkEnkun.Checked)
+                            {
+                                int vIdx = this.chkShowVillage();
+                                if (vIdx >= 0)
+                                {
+                                    List<string[]> vlist = this.getBaseList();
+                                    wb.Navigate(vlist[vIdx][1]);
+                                    return;
+                                }
+                            }
+
                             break;
                         //出兵画面
                         case "/facility/castle_send_troop.php#ptop":
@@ -352,6 +365,24 @@ namespace Bro3AutoAttackTool
                             break;
                     }
 
+                    //遠征訓練所有無チェック
+                    if (url.IndexOf("/village.php") == 0)
+                    {
+                        string href = string.Empty;
+                        if (this.chkEnkun.Checked && this.chkEnkunVillage(out href))
+                        {
+                            wb.Navigate(href);
+                        }
+                        return;
+                    }
+
+                    //遠征訓練所建築実行
+                    if (url.IndexOf("/facility/facility.php?x=") == 0)
+                    {
+                        this.setEnkunFacility();
+                        return;
+                    }
+                    
                     if (url.IndexOf("/card/deck.php?l=") == 0)
                     {
                         //デッキタブ表示
@@ -683,7 +714,6 @@ namespace Bro3AutoAttackTool
                         return new Point(mp.x, mp.y);
                     }
                 }
-            
             }
 
             //資源目標との差分が大きいほど出兵しやすくなるようにする
@@ -1218,6 +1248,12 @@ namespace Bro3AutoAttackTool
                 }
                 catch (Exception ex) { this.debug_log(ex.Message); }
 
+                try
+                {
+                    chkEnkun.Checked = obj.enkun_flag;
+                }
+                catch (Exception ex) { this.debug_log(ex.Message); }
+
             }
             catch (Exception ex)
             {
@@ -1331,6 +1367,8 @@ namespace Bro3AutoAttackTool
                 obj.kd_skill = koudatuList.Text;
                 obj.kd_hp = koudatuHP.Checked;
 
+                obj.enkun_flag = chkEnkun.Checked;
+
                     //save
                 System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Config));
                 System.IO.StreamWriter sw = new System.IO.StreamWriter(fileName, false, new System.Text.UTF8Encoding(false));
@@ -1424,11 +1462,6 @@ namespace Bro3AutoAttackTool
             if (list.Count <= 0) { list.Add("仁君"); }
 
             return list;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void setColor()
@@ -1617,6 +1650,136 @@ namespace Bro3AutoAttackTool
                 
         }
 
+        private List<string[]> getBaseList()
+        {
+            List<string[]> baselist = new List<string[]>();
+            foreach (HtmlElement div in wb.Document.GetElementsByTagName("div"))
+            {
+                if (div.GetAttribute("className").Equals("sideBoxInner basename"))
+                {
+                    foreach (HtmlElement li in div.GetElementsByTagName("li"))
+                    {
+                        if (li.GetAttribute("className").Equals("on"))
+                        {
+                            foreach (HtmlElement span in li.GetElementsByTagName("span"))
+                            {
+                                baselist.Add(new string[]{
+                                  span.GetAttribute("title").ToString()
+                                , string.Format("http://{0}.3gokushi.jp/village.php" , worldid.Text)
+                                });
+                            }
+                        }
+                        else
+                        {
+                            foreach (HtmlElement a in li.GetElementsByTagName("a"))
+                            {
+                                if (!a.GetAttribute("className").Equals("map-basing"))
+                                {
+                                    string href = a.GetAttribute("href").ToString();
+                                    string r = "&page=";
+                                    href = string.Format("{0}%2Fvillage.php", href.Substring(0, href.IndexOf(r) + r.Length ));
+                                    baselist.Add(new string[] { a.GetAttribute("title").ToString(), href });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return baselist;
+        }
 
+        int village_counter = 0;
+        private int chkShowVillage()
+        {
+            //遠征訓練貯金条件判定            
+            if (decimal.ToInt32(woodm.Value) <= wood
+             && decimal.ToInt32(stonem.Value) <= stone
+             && decimal.ToInt32(ironm.Value) <= iron
+             && decimal.ToInt32(ricem.Value) <= rice)
+            {
+                List<string[]> vlist = this.getBaseList();
+                if (village_counter >= vlist.Count) { village_counter = 0; }
+                return village_counter++;
+            }
+            return -1;
+        }
+
+        private bool chkEnkunVillage(out string href)
+        {
+            href = string.Empty;
+            HtmlElement el = wb.Document.GetElementById("mapOverlayMap");
+            if (el!=null)
+            {
+                foreach (HtmlElement area in wb.Document.GetElementsByTagName("area"))
+                {
+                    debug_log(area.GetAttribute("title"));
+                    if (area.GetAttribute("title").IndexOf("遠征訓練所") >= 0)
+                    {
+                        //完成品チェック
+                        if (area.GetAttribute("title").IndexOf("LV.20") > 0) { return false; }
+
+                        //建築中チェック
+                        HtmlElement bl = wb.Document.GetElementById("buildList");
+                        if (bl != null)
+                        {
+                            if (bl.InnerHtml.ToString().IndexOf("遠征訓練所") >= 0) { return false; }
+                        }                        
+
+                        //座標取得
+                        href = area.GetAttribute("href");
+
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private void setEnkunFacility()
+        {
+            bool setselect = false;
+            foreach (HtmlElement sel in wb.Document.GetElementsByTagName("select"))
+            {
+                if (sel.GetAttribute("id").IndexOf("facility_any_level") >= 0)
+                {
+                    HtmlElementCollection opt = sel.GetElementsByTagName("option");
+                    opt[opt.Count - 1].SetAttribute("selected", "True");
+                    setselect = true;
+                }
+            }
+            if (setselect)
+            {
+                foreach (HtmlElement img in wb.Document.GetElementsByTagName("img"))
+                {
+                    debug_log(img.GetAttribute("alt"));
+                    if (img.GetAttribute("alt").IndexOf("この施設の建設準備をする") >= 0)
+                    {
+                        foreach (HtmlElement div in wb.Document.GetElementsByTagName("div"))
+                        {
+                            if (div.GetAttribute("className").Equals("sideBoxInner basename"))
+                            {
+                                foreach (HtmlElement li in div.GetElementsByTagName("li"))
+                                {
+                                    if (li.GetAttribute("className").Equals("on"))
+                                    {
+                                        foreach (HtmlElement span in li.GetElementsByTagName("span"))
+                                        {
+                                            log(string.Format("{0}の遠征訓練所で資源貯蓄しました", span.GetAttribute("title").ToString()));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        img.InvokeMember("click");
+                    }
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.setEnkunFacility();
+        }
     }
 }

@@ -2,6 +2,6 @@
 {
     public class Version
     {
-        public const string ver = "1.nn";
+        public const string ver = "1.nn1";
     }
 }

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.stsmsg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsSkill = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -62,21 +63,25 @@
             this.label14 = new System.Windows.Forms.Label();
             this.villages = new System.Windows.Forms.ComboBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button10 = new System.Windows.Forms.Button();
             this.rice_y = new System.Windows.Forms.NumericUpDown();
             this.rice_x = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button9 = new System.Windows.Forms.Button();
             this.iron_y = new System.Windows.Forms.NumericUpDown();
             this.iron_x = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button8 = new System.Windows.Forms.Button();
             this.stone_y = new System.Windows.Forms.NumericUpDown();
             this.stone_x = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button7 = new System.Windows.Forms.Button();
             this.wood_y = new System.Windows.Forms.NumericUpDown();
             this.wood_x = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
@@ -95,6 +100,7 @@
             this.worldid = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.koudatuHP = new System.Windows.Forms.CheckBox();
             this.koudatuList = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -145,12 +151,9 @@
             this.stoneF = new System.Windows.Forms.CheckBox();
             this.ironF = new System.Windows.Forms.CheckBox();
             this.riceF = new System.Windows.Forms.CheckBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.koudatuHP = new System.Windows.Forms.CheckBox();
-            this.tsSkill = new System.Windows.Forms.ToolStripStatusLabel();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.chkEnkun = new System.Windows.Forms.CheckBox();
+            this.label32 = new System.Windows.Forms.Label();
             this.wb = new Bro3AutoAttackTool.WebBrowserEx();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -195,6 +198,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.stonem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ironm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ricem)).BeginInit();
+            this.groupBox12.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -211,10 +215,16 @@
             // stsmsg
             // 
             this.stsmsg.Name = "stsmsg";
-            this.stsmsg.Size = new System.Drawing.Size(626, 18);
+            this.stsmsg.Size = new System.Drawing.Size(657, 18);
             this.stsmsg.Spring = true;
             this.stsmsg.Text = "--:--:--";
             this.stsmsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tsSkill
+            // 
+            this.tsSkill.Name = "tsSkill";
+            this.tsSkill.Size = new System.Drawing.Size(12, 18);
+            this.tsSkill.Text = ".";
             // 
             // tabControl1
             // 
@@ -635,6 +645,16 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "糧の出兵先";
             // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(177, 15);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(53, 23);
+            this.button10.TabIndex = 4;
+            this.button10.Text = "確認";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
             // rice_y
             // 
             this.rice_y.Location = new System.Drawing.Point(116, 17);
@@ -700,6 +720,16 @@
             this.groupBox5.TabIndex = 7;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "鉄の出兵先";
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(177, 15);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(53, 23);
+            this.button9.TabIndex = 3;
+            this.button9.Text = "確認";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // iron_y
             // 
@@ -767,6 +797,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "石の出兵先";
             // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(177, 14);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(53, 23);
+            this.button8.TabIndex = 3;
+            this.button8.Text = "確認";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
             // stone_y
             // 
             this.stone_y.Location = new System.Drawing.Point(116, 17);
@@ -832,6 +872,16 @@
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "木の出兵先";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(177, 15);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(53, 23);
+            this.button7.TabIndex = 2;
+            this.button7.Text = "確認";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // wood_y
             // 
@@ -1047,6 +1097,16 @@
             this.groupBox10.TabIndex = 5;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "傾国対象外スキル";
+            // 
+            // koudatuHP
+            // 
+            this.koudatuHP.AutoSize = true;
+            this.koudatuHP.Location = new System.Drawing.Point(6, 136);
+            this.koudatuHP.Name = "koudatuHP";
+            this.koudatuHP.Size = new System.Drawing.Size(271, 16);
+            this.koudatuHP.TabIndex = 2;
+            this.koudatuHP.Text = "傾国対象外スキル所持武将は個別にHPを回復する";
+            this.koudatuHP.UseVisualStyleBackColor = true;
             // 
             // koudatuList
             // 
@@ -1331,6 +1391,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.groupBox12);
             this.tabPage5.Controls.Add(this.button5);
             this.tabPage5.Controls.Add(this.groupBox11);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
@@ -1644,61 +1705,36 @@
             this.riceF.UseVisualStyleBackColor = true;
             this.riceF.CheckedChanged += new System.EventHandler(this.riceF_CheckedChanged);
             // 
-            // button7
+            // groupBox12
             // 
-            this.button7.Location = new System.Drawing.Point(177, 15);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(53, 23);
-            this.button7.TabIndex = 2;
-            this.button7.Text = "確認";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.groupBox12.Controls.Add(this.label32);
+            this.groupBox12.Controls.Add(this.chkEnkun);
+            this.groupBox12.Location = new System.Drawing.Point(404, 6);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(264, 277);
+            this.groupBox12.TabIndex = 3;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "遠征訓練所貯金";
             // 
-            // button8
+            // chkEnkun
             // 
-            this.button8.Location = new System.Drawing.Point(177, 14);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(53, 23);
-            this.button8.TabIndex = 3;
-            this.button8.Text = "確認";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.chkEnkun.AutoSize = true;
+            this.chkEnkun.Location = new System.Drawing.Point(17, 21);
+            this.chkEnkun.Name = "chkEnkun";
+            this.chkEnkun.Size = new System.Drawing.Size(161, 16);
+            this.chkEnkun.TabIndex = 0;
+            this.chkEnkun.Text = "遠征訓練所で自動貯金する";
+            this.chkEnkun.UseVisualStyleBackColor = true;
             // 
-            // button9
+            // label32
             // 
-            this.button9.Location = new System.Drawing.Point(177, 15);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(53, 23);
-            this.button9.TabIndex = 3;
-            this.button9.Text = "確認";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(177, 15);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(53, 23);
-            this.button10.TabIndex = 4;
-            this.button10.Text = "確認";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // koudatuHP
-            // 
-            this.koudatuHP.AutoSize = true;
-            this.koudatuHP.Location = new System.Drawing.Point(6, 136);
-            this.koudatuHP.Name = "koudatuHP";
-            this.koudatuHP.Size = new System.Drawing.Size(271, 16);
-            this.koudatuHP.TabIndex = 2;
-            this.koudatuHP.Text = "傾国対象外スキル所持武将は個別にHPを回復する";
-            this.koudatuHP.UseVisualStyleBackColor = true;
-            // 
-            // tsSkill
-            // 
-            this.tsSkill.Name = "tsSkill";
-            this.tsSkill.Size = new System.Drawing.Size(12, 18);
-            this.tsSkill.Text = ".";
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(15, 47);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(234, 96);
+            this.label32.TabIndex = 1;
+            this.label32.Text = "資源がすべての目標値を超えた場合、\r\n拠点を巡回しLv20未満の遠征訓練所があったら\r\nLv20になるように建設予約します。\r\n建築スキル発動中の場合、施設ができ" +
+    "て\r\nしまう可能性があるのでご注意ください。\r\n\r\nまた、この機能は自動建築機能が有効の\r\n場合のみ動作します。\r\n";
             // 
             // wb
             // 
@@ -1797,6 +1833,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.stonem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ironm)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ricem)).EndInit();
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1927,6 +1965,9 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.CheckBox koudatuHP;
         private System.Windows.Forms.ToolStripStatusLabel tsSkill;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.CheckBox chkEnkun;
     }
 }
 

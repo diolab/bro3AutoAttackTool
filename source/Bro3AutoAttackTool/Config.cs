@@ -76,10 +76,10 @@ namespace Bro3AutoAttackTool
             public string type;
         }
         public List<mpb> mp_list;
-
-
-
+                
         public string kd_skill;
         public bool kd_hp;
+
+        public bool enkun_flag;
     }
 }
