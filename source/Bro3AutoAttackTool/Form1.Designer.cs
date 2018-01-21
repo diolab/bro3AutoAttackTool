@@ -34,6 +34,7 @@
             this.tsSkill = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.wb = new Bro3AutoAttackTool.WebBrowserEx();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.diff = new System.Windows.Forms.Label();
             this.cbdebug = new System.Windows.Forms.CheckBox();
@@ -126,6 +127,9 @@
             this.label23 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.chkEnkun = new System.Windows.Forms.CheckBox();
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.button6 = new System.Windows.Forms.Button();
@@ -151,10 +155,6 @@
             this.stoneF = new System.Windows.Forms.CheckBox();
             this.ironF = new System.Windows.Forms.CheckBox();
             this.riceF = new System.Windows.Forms.CheckBox();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.chkEnkun = new System.Windows.Forms.CheckBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.wb = new Bro3AutoAttackTool.WebBrowserEx();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -192,13 +192,13 @@
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mpgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.woodm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stonem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ironm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ricem)).BeginInit();
-            this.groupBox12.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -252,6 +252,22 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Web";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // wb
+            // 
+            this.wb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.wb.IsWebBrowserContextMenuEnabled = false;
+            this.wb.Location = new System.Drawing.Point(8, 6);
+            this.wb.MinimumSize = new System.Drawing.Size(20, 20);
+            this.wb.Name = "wb";
+            this.wb.ScriptErrorsSuppressed = true;
+            this.wb.Size = new System.Drawing.Size(660, 349);
+            this.wb.TabIndex = 0;
+            this.wb.Url = new System.Uri("http://mixi.jp/run_appli.pl?id=6598", System.UriKind.Absolute);
+            this.wb.NewWindow3 += new Bro3AutoAttackTool.WebBrowserEx.WebBrowserNewWindow3EventHandler(this.wb_NewWindow3);
+            this.wb.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.wb_DocumentCompleted);
             // 
             // tabPage1
             // 
@@ -1402,6 +1418,37 @@
             this.tabPage5.Text = "詳細設定2";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.label32);
+            this.groupBox12.Controls.Add(this.chkEnkun);
+            this.groupBox12.Location = new System.Drawing.Point(404, 6);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(264, 277);
+            this.groupBox12.TabIndex = 3;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "遠征訓練所貯金";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(15, 47);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(234, 96);
+            this.label32.TabIndex = 1;
+            this.label32.Text = "資源がすべての目標値を超えた場合、\r\n拠点を巡回しLv20未満の遠征訓練所があったら\r\nLv20になるように建設予約します。\r\n建築スキル発動中の場合、施設ができ" +
+    "て\r\nしまう可能性があるのでご注意ください。\r\n\r\nまた、この機能は自動建築機能が有効の\r\n場合のみ動作します。\r\n";
+            // 
+            // chkEnkun
+            // 
+            this.chkEnkun.AutoSize = true;
+            this.chkEnkun.Location = new System.Drawing.Point(17, 21);
+            this.chkEnkun.Name = "chkEnkun";
+            this.chkEnkun.Size = new System.Drawing.Size(161, 16);
+            this.chkEnkun.TabIndex = 0;
+            this.chkEnkun.Text = "遠征訓練所で自動貯金する";
+            this.chkEnkun.UseVisualStyleBackColor = true;
+            // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(564, 320);
@@ -1705,53 +1752,6 @@
             this.riceF.UseVisualStyleBackColor = true;
             this.riceF.CheckedChanged += new System.EventHandler(this.riceF_CheckedChanged);
             // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.label32);
-            this.groupBox12.Controls.Add(this.chkEnkun);
-            this.groupBox12.Location = new System.Drawing.Point(404, 6);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(264, 277);
-            this.groupBox12.TabIndex = 3;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "遠征訓練所貯金";
-            // 
-            // chkEnkun
-            // 
-            this.chkEnkun.AutoSize = true;
-            this.chkEnkun.Location = new System.Drawing.Point(17, 21);
-            this.chkEnkun.Name = "chkEnkun";
-            this.chkEnkun.Size = new System.Drawing.Size(161, 16);
-            this.chkEnkun.TabIndex = 0;
-            this.chkEnkun.Text = "遠征訓練所で自動貯金する";
-            this.chkEnkun.UseVisualStyleBackColor = true;
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(15, 47);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(234, 96);
-            this.label32.TabIndex = 1;
-            this.label32.Text = "資源がすべての目標値を超えた場合、\r\n拠点を巡回しLv20未満の遠征訓練所があったら\r\nLv20になるように建設予約します。\r\n建築スキル発動中の場合、施設ができ" +
-    "て\r\nしまう可能性があるのでご注意ください。\r\n\r\nまた、この機能は自動建築機能が有効の\r\n場合のみ動作します。\r\n";
-            // 
-            // wb
-            // 
-            this.wb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.wb.IsWebBrowserContextMenuEnabled = false;
-            this.wb.Location = new System.Drawing.Point(8, 6);
-            this.wb.MinimumSize = new System.Drawing.Size(20, 20);
-            this.wb.Name = "wb";
-            this.wb.ScriptErrorsSuppressed = true;
-            this.wb.Size = new System.Drawing.Size(660, 349);
-            this.wb.TabIndex = 0;
-            this.wb.Url = new System.Uri("http://mixi.jp/run_appli.pl?id=6598", System.UriKind.Absolute);
-            this.wb.NewWindow3 += new Bro3AutoAttackTool.WebBrowserEx.WebBrowserNewWindow3EventHandler(this.wb_NewWindow3);
-            this.wb.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.wb_DocumentCompleted);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1826,6 +1826,8 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.tabPage5.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mpgv)).EndInit();
@@ -1833,8 +1835,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.stonem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ironm)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ricem)).EndInit();
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

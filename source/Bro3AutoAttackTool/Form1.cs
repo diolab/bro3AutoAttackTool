@@ -271,6 +271,7 @@ namespace Bro3AutoAttackTool
                                 if (vIdx >= 0)
                                 {
                                     List<string[]> vlist = this.getBaseList();
+                                    log(string.Format("{0} の遠征訓練所貯金チェック", vlist[vIdx][0]));
                                     wb.Navigate(vlist[vIdx][1]);
                                     return;
                                 }
@@ -406,7 +407,7 @@ namespace Bro3AutoAttackTool
                                     }
                                 }
 
-                                if (skillcheck)
+                                //if (skillcheck)
                                 {
                                     //updeck check
                                     foreach (HtmlElement div in el.GetElementsByTagName("div"))
@@ -1744,7 +1745,7 @@ namespace Bro3AutoAttackTool
                 if (sel.GetAttribute("id").IndexOf("facility_any_level") >= 0)
                 {
                     HtmlElementCollection opt = sel.GetElementsByTagName("option");
-                    opt[opt.Count - 1].SetAttribute("selected", "True");
+                    opt[opt.Count - 1].SetAttribute("selected", "selected");
                     setselect = true;
                 }
             }
@@ -1753,7 +1754,8 @@ namespace Bro3AutoAttackTool
                 foreach (HtmlElement img in wb.Document.GetElementsByTagName("img"))
                 {
                     debug_log(img.GetAttribute("alt"));
-                    if (img.GetAttribute("alt").IndexOf("この施設の建設準備をする") >= 0)
+                    if (img.GetAttribute("alt").IndexOf("この建物をレベルアップします") >= 0
+                     || img.GetAttribute("alt").IndexOf("この施設の建設準備をする") >= 0)
                     {
                         foreach (HtmlElement div in wb.Document.GetElementsByTagName("div"))
                         {
@@ -1771,7 +1773,21 @@ namespace Bro3AutoAttackTool
                                 }
                             }
                         }
-                        img.InvokeMember("click");
+
+                        foreach (HtmlElement inp in wb.Document.GetElementsByTagName("input"))
+                        {
+                            if (inp.GetAttribute("name").IndexOf("target_level") >= 0)
+                            {
+                                inp.SetAttribute("value", "20");
+                            }
+                        }
+                        foreach (HtmlElement form in wb.Document.GetElementsByTagName("form"))
+                        {
+                            if (form.GetAttribute("name").IndexOf("facilityLvupForm") >= 0)
+                            {
+                                form.InvokeMember("submit");
+                            }
+                        }
                     }
                 }
             }
@@ -1779,7 +1795,8 @@ namespace Bro3AutoAttackTool
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.setEnkunFacility();
+            //this.setEnkunFacility();
+
         }
     }
 }
