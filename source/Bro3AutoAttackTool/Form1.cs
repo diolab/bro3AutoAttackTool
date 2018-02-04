@@ -369,10 +369,13 @@ namespace Bro3AutoAttackTool
                     //遠征訓練所有無チェック
                     if (url.IndexOf("/village.php") == 0)
                     {
-                        string href = string.Empty;
-                        if (this.chkEnkun.Checked && this.chkEnkunVillage(out href))
+                        if (chkEnkunStatus())
                         {
-                            wb.Navigate(href);
+                            string href = string.Empty;
+                            if (this.chkEnkun.Checked && this.chkEnkunVillage(out href))
+                            {
+                                wb.Navigate(href);
+                            }
                         }
                         return;
                     }
@@ -1689,14 +1692,23 @@ namespace Bro3AutoAttackTool
             return baselist;
         }
 
-        int village_counter = 0;
-        private int chkShowVillage()
+        private bool chkEnkunStatus()
         {
             //遠征訓練貯金条件判定            
             if (decimal.ToInt32(woodm.Value) <= wood
              && decimal.ToInt32(stonem.Value) <= stone
              && decimal.ToInt32(ironm.Value) <= iron
              && decimal.ToInt32(ricem.Value) <= rice)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        int village_counter = 0;
+        private int chkShowVillage()
+        {
+            if(chkEnkunStatus())
             {
                 List<string[]> vlist = this.getBaseList();
                 if (village_counter >= vlist.Count) { village_counter = 0; }
