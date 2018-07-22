@@ -181,7 +181,7 @@ namespace Bro3AutoAttackTool
 
                                         this.busyoStatus(bList);
                                         return;
-                                    }
+                                        }
                                 }
                             }
 
@@ -234,6 +234,9 @@ namespace Bro3AutoAttackTool
 
                                     if (rflg)
                                     {
+                                        //出兵種別設定
+                                        this.setMoveType(w);
+                                        //出兵
                                         w.Document.GetElementById("btn_preview").InvokeMember("click");
                                     }
                                     return;
@@ -330,7 +333,7 @@ namespace Bro3AutoAttackTool
                                                 {
                                                     foreach (HtmlElement img in div.GetElementsByTagName("img"))
                                                     {
-                                                        if (!img.GetAttribute("className").Equals("set_release btn_deck_set")) { continue; }
+                                                        if (!img.GetAttribute("className").Equals("set_release btn_deck_set_s")) { continue; }
 
 
                                                         //ヘッダー情報
@@ -593,6 +596,21 @@ namespace Bro3AutoAttackTool
             }
 
             return needKeikoku;
+        }
+
+        private void setMoveType(WebBrowser w)
+        {
+            //出兵条件設定
+            foreach (HtmlElement inp in w.Document.GetElementsByTagName("input"))
+            {
+                if (inp.GetAttribute("Name").Equals("radio_move_type"))
+                {
+                    if (inp.GetAttribute("value").Equals("307"))
+                    {
+                        inp.SetAttribute("checked", "checked");
+                    }
+                }
+            }
         }
 
         private bool chkJinkunSkill(WebBrowser w)

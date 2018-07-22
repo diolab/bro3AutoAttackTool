@@ -2,6 +2,6 @@
 {
     public class Version
     {
-        public const string ver = "1.nn 20180204";
+        public const string ver = "1.nn 20180721";
     }
 }
