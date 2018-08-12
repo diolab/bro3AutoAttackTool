@@ -534,7 +534,7 @@ namespace Bro3AutoAttackTool
                     {
                         w.Document.All.GetElementsByName("email")[0].InnerText = loginid.Text;
                         w.Document.All.GetElementsByName("password")[0].InnerText = loginpw.Text;
-                        w.Document.Forms[0].InvokeMember("submit");
+                        if (true == chkAutoLogin.Checked) { w.Document.Forms[0].InvokeMember("submit"); }
                     }
 
                 }

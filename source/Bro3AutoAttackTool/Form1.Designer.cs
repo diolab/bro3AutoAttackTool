@@ -155,6 +155,7 @@
             this.stoneF = new System.Windows.Forms.CheckBox();
             this.ironF = new System.Windows.Forms.CheckBox();
             this.riceF = new System.Windows.Forms.CheckBox();
+            this.chkAutoLogin = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -1024,6 +1025,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.chkAutoLogin);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.loginpw);
@@ -1040,7 +1042,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(499, 21);
+            this.label3.Location = new System.Drawing.Point(468, 21);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 12);
             this.label3.TabIndex = 5;
@@ -1049,7 +1051,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(290, 21);
+            this.label2.Location = new System.Drawing.Point(259, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 12);
             this.label2.TabIndex = 4;
@@ -1057,7 +1059,7 @@
             // 
             // loginpw
             // 
-            this.loginpw.Location = new System.Drawing.Point(354, 18);
+            this.loginpw.Location = new System.Drawing.Point(323, 18);
             this.loginpw.Name = "loginpw";
             this.loginpw.PasswordChar = '*';
             this.loginpw.Size = new System.Drawing.Size(138, 19);
@@ -1067,7 +1069,7 @@
             // 
             this.loginid.Location = new System.Drawing.Point(70, 18);
             this.loginid.Name = "loginid";
-            this.loginid.Size = new System.Drawing.Size(214, 19);
+            this.loginid.Size = new System.Drawing.Size(181, 19);
             this.loginid.TabIndex = 0;
             // 
             // label1
@@ -1081,7 +1083,7 @@
             // 
             // worldid
             // 
-            this.worldid.Location = new System.Drawing.Point(554, 18);
+            this.worldid.Location = new System.Drawing.Point(523, 18);
             this.worldid.Name = "worldid";
             this.worldid.Size = new System.Drawing.Size(71, 19);
             this.worldid.TabIndex = 2;
@@ -1752,6 +1754,18 @@
             this.riceF.UseVisualStyleBackColor = true;
             this.riceF.CheckedChanged += new System.EventHandler(this.riceF_CheckedChanged);
             // 
+            // chkAutoLogin
+            // 
+            this.chkAutoLogin.AutoSize = true;
+            this.chkAutoLogin.Checked = true;
+            this.chkAutoLogin.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAutoLogin.Location = new System.Drawing.Point(601, 19);
+            this.chkAutoLogin.Name = "chkAutoLogin";
+            this.chkAutoLogin.Size = new System.Drawing.Size(48, 16);
+            this.chkAutoLogin.TabIndex = 6;
+            this.chkAutoLogin.Text = "自動";
+            this.chkAutoLogin.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1968,6 +1982,7 @@
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.CheckBox chkEnkun;
+        private System.Windows.Forms.CheckBox chkAutoLogin;
     }
 }
 
