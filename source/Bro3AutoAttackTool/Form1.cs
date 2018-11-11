@@ -234,10 +234,9 @@ namespace Bro3AutoAttackTool
 
                                     if (rflg)
                                     {
-                                        //出兵種別設定
-                                        this.setMoveType(w);
                                         //出兵
-                                        w.Document.GetElementById("btn_preview").InvokeMember("click");
+                                        this.rokakuBtnclick(w);
+                                        
                                     }
                                     return;
                                 }
@@ -598,16 +597,16 @@ namespace Bro3AutoAttackTool
             return needKeikoku;
         }
 
-        private void setMoveType(WebBrowser w)
+        private void rokakuBtnclick(WebBrowser w)
         {
             //出兵条件設定
             foreach (HtmlElement inp in w.Document.GetElementsByTagName("input"))
             {
-                if (inp.GetAttribute("Name").Equals("radio_move_type"))
+                if (inp.GetAttribute("Name").Equals("btn_preview"))
                 {
                     if (inp.GetAttribute("value").Equals("307"))
                     {
-                        inp.SetAttribute("checked", "checked");
+                        inp.InvokeMember("click");
                     }
                 }
             }
