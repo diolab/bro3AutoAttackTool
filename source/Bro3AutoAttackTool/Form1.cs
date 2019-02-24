@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace Bro3AutoAttackTool
 {
@@ -338,7 +339,7 @@ namespace Bro3AutoAttackTool
                                                         //ヘッダー情報
                                                         string str_header = "Content-Type: application/x-www-form-urlencoded;charset=UTF-8";
                                                         System.Text.RegularExpressions.Regex r =
-                                                            new System.Text.RegularExpressions.Regex(@"operationExecution\('.*, 'unset'\)");
+                                                            new System.Text.RegularExpressions.Regex(@"operationExecution\('.*, 'unset'");
                                                         System.Text.RegularExpressions.Match m = r.Match(div.InnerHtml);
 
                                                         if (m.Success)
@@ -846,113 +847,8 @@ namespace Bro3AutoAttackTool
                     //debug_log(be.InnerHtml);
                     //if (cnt++ <= 0) { continue; }
 
-                    int c = 0;
-                    Busyo b = new Busyo();
-                    foreach (HtmlElement tr in be.GetElementsByTagName("tr"))
-                    {
-                        c++;
-                        if (c <= 1) { continue; }
-
-                        debug_log(tr.InnerHtml);
-
-                        HtmlElementCollection td = tr.GetElementsByTagName("td");
-                        if (c == 2)
-                        {
-                            //sentaku
-                            b.Status = td[0].InnerHtml.Trim();
-
-                            //id
-                            HtmlElementCollection r = td[0].GetElementsByTagName("input");
-                            if (r.Count > 0)
-                            {
-                                b.Id = r[0].GetAttribute("id");
-                            }
-
-                            //name
-                            b.Name = td[1].GetElementsByTagName("a")[1].InnerHtml;
-
-                            //tobatu
-                            string tob = "<STRONG>討</STRONG>";
-                            string html = td[2].InnerHtml.ToUpper().Replace("\t", string.Empty);
-                            html = html.Replace("<SPAN CLASS=\"RED\">", string.Empty).Replace("</SPAN>", string.Empty);
-                            string buf = html.Substring(html.IndexOf(tob) + tob.Length);
-
-                            string atk = "<STRONG>攻撃</STRONG>";
-                            buf = buf.Substring(0, buf.IndexOf(atk)).Trim();
-
-                            //debug_log(buf);
-                            b.tobatu = int.Parse(buf.Substring(0, buf.IndexOf("</P>")).Trim());
-
-                            //attack
-                            buf = html.Substring(html.IndexOf(atk) + atk.Length);
-
-                            string tiryo = "<STRONG>知力</STRONG>";
-                            buf = buf.Substring(0, buf.IndexOf(tiryo) - 1).Trim();
-                            b.attack = int.Parse(this.redParam(buf));
-
-                            //speed
-                            string spd = "<STRONG>速度</STRONG>";
-                            buf = html.Substring(html.IndexOf(spd) + spd.Length);
-
-                            string spde = "<BR>\n<STRONG>防御力</STRONG>";
-                            buf = buf.Substring(0, buf.IndexOf(spde) - 1).Trim();
-                            b.speed = (int)double.Parse(this.redParam(buf));
-
-
-                            //hp
-                            string hp = "<STRONG>HP</STRONG>";
-                            buf = html.Substring(html.IndexOf(hp) + hp.Length);
-
-                            buf = buf.Substring(0, buf.IndexOf(string.Format("&NBSP;\n{0}", tob))).Trim();
-                            b.hp = int.Parse(buf);
-
-                            debug_log(string.Format("武将情報-------------------------------"));
-                            debug_log(string.Format("武将名：{0}", b.Name));
-                            debug_log(string.Format("討伐：{0}", b.tobatu));
-                            debug_log(string.Format("攻撃力：{0}", b.attack));
-                            debug_log(string.Format("速度：{0}", b.speed));
-                            debug_log(string.Format("ＨＰ：{0}", b.hp));
-                            debug_log(string.Format("ID：{0}", b.Id));
-                            debug_log(string.Format("スキルID：{0}", b.skillId));
-                            debug_log(string.Format("スキル名：{0}", b.skillName));
-                            debug_log(string.Format("ステータス：{0}", b.Status));
-                            foreach (string msg in b.skill)
-                            {
-                                debug_log(string.Format("スキル：{0}", msg));
-                            }
-
-
-
-                        }
-                    }
-
-                    //skill
-                    string key = "skill_radio_";
-                    foreach (HtmlElement td in be.GetElementsByTagName("td"))
-                    {
-                        foreach (HtmlElement inp in td.GetElementsByTagName("input"))
-                        {
-                            if (inp.GetAttribute("id").Substring(0, key.Length).Equals(key))
-                            {
-                                foreach (HtmlElement a in td.GetElementsByTagName("a"))
-                                {
-                                    b.skillId = inp.GetAttribute("id");
-                                    b.skillName = a.InnerHtml;
-                                    goto exitloop;
-                                }
-                            }
-                        }
-
-                        int idx = td.InnerHtml.IndexOf("LV");
-                        if (idx > 0)
-                        {
-                            b.skill.Add(td.InnerHtml.Substring(0, idx));
-                        }
-                    }
-                exitloop: ;
-
-
-                    list.Add(b);
+                    Busyo b = this.getBusyoStatus(be);
+                    if (null != b) { list.Add(b); }
                 }
 
             }
@@ -1091,6 +987,134 @@ namespace Bro3AutoAttackTool
 
             }
 
+        }
+
+        private Busyo getBusyoStatus(HtmlElement be)
+        {
+            int c = 0;
+            Busyo b = null;
+            foreach (HtmlElement tr in be.GetElementsByTagName("tr"))
+            {
+                c++;
+                if (c <= 1) { continue; }
+
+                debug_log(tr.InnerHtml);
+
+                HtmlElementCollection td = tr.GetElementsByTagName("td");
+                if (c == 2)
+                {
+                    b = new Busyo();
+
+                    //sentaku
+                    b.Status = td[0].InnerHtml.Trim();
+
+                    //id
+                    HtmlElementCollection r = td[0].GetElementsByTagName("input");
+                    if (r.Count > 0)
+                    {
+                        b.Id = r[0].GetAttribute("id");
+                    }
+
+                    //name
+                    b.Name = td[1].GetElementsByTagName("a")[1].InnerHtml;
+
+                    string html = td[2].InnerHtml.ToLower().Replace("\t", "").Replace("\r\n", "").Replace("\n", "");
+
+
+                    Regex ri = new Regex("[0-9].*", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+                    //討伐
+                    string rs = "討.*?>[0-9]{1,3}";
+                    Regex re = new Regex(rs, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                    Match m = re.Match(html);
+                    if (m.Success) {
+                        Match m1 = ri.Match(m.ToString());
+                        if (m1.Success) { b.tobatu = int.Parse(m1.ToString()); } else { return null; }
+                    } else { return null; }
+
+                    //攻撃
+                    rs = "攻撃.*?>[0-9]{1,8}";
+                    re = new Regex(rs, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                    m = re.Match(html);
+                    if (m.Success)
+                    {
+                        Match m1 = ri.Match(m.ToString());
+                        if (m1.Success) { b.attack = int.Parse(m1.ToString()); } else { return null; }
+                    }
+                    else { return null; }
+
+                    //速度
+                    rs = "速度.*?>[0-9]{1,4}";
+                    re = new Regex(rs, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                    m = re.Match(html);
+                    if (m.Success)
+                    {
+                        Match m1 = ri.Match(m.ToString());
+                        if (m1.Success) { b.speed = int.Parse(m1.ToString()); } else { return null; }
+                    }
+                    else { return null; }
+
+                    //HP
+                    rs = "hp.*?>[0-9]{1,3}";
+                    re = new Regex(rs, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                    m = re.Match(html);
+                    if (m.Success)
+                    {
+                        Match m1 = ri.Match(m.ToString());
+                        if (m1.Success) { b.hp = int.Parse(m1.ToString()); } else { return null; }
+                    }
+                    else { return null; }
+
+
+                    debug_log(string.Format("武将情報-------------------------------"));
+                    debug_log(string.Format("武将名：{0}", b.Name));
+                    debug_log(string.Format("討伐：{0}", b.tobatu));
+                    debug_log(string.Format("攻撃力：{0}", b.attack));
+                    debug_log(string.Format("速度：{0}", b.speed));
+                    debug_log(string.Format("ＨＰ：{0}", b.hp));
+                    debug_log(string.Format("ID：{0}", b.Id));
+                    debug_log(string.Format("スキルID：{0}", b.skillId));
+                    debug_log(string.Format("スキル名：{0}", b.skillName));
+                    debug_log(string.Format("ステータス：{0}", b.Status));
+                    foreach (string msg in b.skill)
+                    {
+                        debug_log(string.Format("スキル：{0}", msg));
+                    }
+
+
+
+                }
+            }
+
+            //skill
+            if (b != null)
+            {
+                string key = "skill_radio_";
+                foreach (HtmlElement td in be.GetElementsByTagName("td"))
+                {
+                    foreach (HtmlElement inp in td.GetElementsByTagName("input"))
+                    {
+                        if (inp.GetAttribute("id").Substring(0, key.Length).Equals(key))
+                        {
+                            foreach (HtmlElement a in td.GetElementsByTagName("a"))
+                            {
+                                b.skillId = inp.GetAttribute("id");
+                                b.skillName = a.InnerHtml;
+                                goto exitloop;
+                            }
+                        }
+                    }
+
+                    int idx = td.InnerHtml.IndexOf("LV");
+                    if (idx > 0)
+                    {
+                        b.skill.Add(td.InnerHtml.Substring(0, idx));
+                    }
+                }
+            exitloop: ;
+            }
+
+            return b;
         }
 
         private void setSkillStatus()
